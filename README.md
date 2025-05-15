@@ -294,7 +294,3 @@ curl http://localhost:8000/health        # Webhook
 - **WhatsApp Integration**: [wweb-mcp](https://github.com/pnizer/wweb-mcp)
 - **AI Framework**: Google Gemini AI
 - **Containerization**: Docker and Docker Compose
-
----
-
-Made with ❤️ by [Your Name/Organization]
