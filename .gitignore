@@ -49,4 +49,6 @@ __pycache__/
 *.un~
 *.bkp
 
-  whatsapp-mcp/.puppeteer_ws/
+# WhatsApp session data
+whatsapp-session-data/
+whatsapp-mcp/.puppeteer_ws/
