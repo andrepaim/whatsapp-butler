@@ -198,17 +198,6 @@ Assistant: [Forwards the message with a summary]
 
 ## Development
 
-### Project Structure
-```
-.
-├── agent/                 # AI agent implementation
-├── whatsapp-mcp/         # WhatsApp MCP server
-├── whatsapp-session-data/ # WhatsApp session storage
-├── docker-compose.yml    # Service configuration
-├── setup-whatsapp.sh     # Setup script
-└── webhook.json         # Webhook configuration
-```
-
 ### Submodule Management
 
 Update the WhatsApp MCP submodule:
@@ -233,14 +222,6 @@ make docker-compose-up
 ```bash
 make docker-compose-logs
 ```
-
-### Health Checks
-
-Each service includes health checks:
-- WhatsApp API: Checks API status endpoint
-- Webhook: Checks health endpoint
-- Retry attempts: 5 times with 10s intervals
-
 ## Troubleshooting
 
 ### Common Issues
