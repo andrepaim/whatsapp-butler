@@ -29,13 +29,23 @@ Butler: Mark shared this address on Tuesday:
 
 💡 **Tip:** For a cleaner experience, use the assistant in your personal chat with yourself. Since all responses are sent from your own account (not a separate "butler" contact), this keeps other conversations uncluttered and helps maintain context without confusing others.
 
+### Technical Details
 
-The magic happens through a simple prefix command - just start your message with `@paimai` (or customize your own prefix), and your butler instantly knows you need assistance. Behind the scenes, WhatsApp Butler:
+1. **WhatsApp Web Connection**  
+   WhatsApp Butler connects to your WhatsApp account using the [whatsapp-web.js](https://github.com/pedroslopez/whatsapp-web.js) library. On first setup, you'll need to scan a WhatsApp Web QR code to authenticate.
 
-1. **Monitors your conversations** - Listens for your command prefix in any chat
-2. **Processes your request** - Uses Google's Gemini AI to understand exactly what you need
-3. **Searches your WhatsApp data** - Finds relevant messages, contacts, and information
-4. **Delivers precise responses** - Replies directly in your chat with exactly what you asked for
+2. **Browser-like Behavior via MCP Server**  
+   The system behaves like a browser running WhatsApp Web, powered by a fork of [wweb-mcp](https://github.com/pnizer/wweb-mcp) server, which manages the WhatsApp session and message operations.
+
+3. **Command Detection**  
+   Any message you send (in your personal chat with yourself) that starts with the prefix `@paimai` is automatically detected and forwarded to the AI agent.
+
+4. **Agent Querying and Actions**  
+   The agent uses the WhatsApp MCP Server to search your WhatsApp chat history, answer your queries, and can also send messages on your behalf if you request it.
+
+5. **Private Answer Delivery**  
+   All answers from the agent are sent back to your personal chat with yourself, ensuring privacy and keeping your other conversations uncluttered.
+
 
 WhatsApp Butler can help you:
 
@@ -44,26 +54,6 @@ WhatsApp Butler can help you:
 - 📤 Forward important messages with added context (save time explaining background information)
 - 💬 Answer complex questions about your conversations (who said what and when)
 - 🧠 Maintain context between requests (have natural, flowing interactions)
-
-### Key Features
-
-1. **Message Management**
-   - Search through your entire WhatsApp history
-   - Find specific messages
-   - Get summaries of conversations
-   - Send messages to any contact or group
-
-2. **Smart Commands**
-   - Start any request with `@paimai`
-   - Ask questions in natural language
-   - Get instant responses in the same chat
-   - Customize the command prefix if desired
-
-3. **Intelligent Assistance**
-   - Understands context and conversation history
-   - Can handle complex queries about your messages
-   - Provides relevant information and summaries
-   - Maintains privacy by only processing prefixed messages
 
 ## Getting Started
 
@@ -87,16 +77,10 @@ cd whatsapp-watchdog
 ```bash
 # WhatsApp API Configuration
 WHATSAPP_API_KEY=your_whatsapp_api_key
-WHATSAPP_API_URL=http://localhost:3000/api
 MESSAGE_PREFIX=@paimai  # Optional: customize the command prefix
-
-# Google AI Configuration
 GOOGLE_API_KEY=your_google_api_key
 GOOGLE_GENAI_USE_VERTEXAI=false  # Set to true if using Vertex AI
 AGENT_MODEL=your_agent_model_name (e.g. gemini-2.0-flash)
-
-# Webhook Configuration
-WEBHOOK_PORT=8000  # Port for the webhook server
 ```
 
 3. Run the setup script:
