@@ -14,7 +14,7 @@ help:
 # Docker Compose commands
 .PHONY: docker-compose-up
 up:
-	docker-compose up --rebuild webhook whatsapp-auth whatsapp-mcp
+	docker-compose up --build webhook whatsapp-api whatsapp-mcp
 
 .PHONY: docker-compose-down
 down:
