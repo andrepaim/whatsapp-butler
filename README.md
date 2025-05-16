@@ -29,6 +29,14 @@ Butler: Mark shared this address on Tuesday:
 
 💡 **Tip:** For a cleaner experience, use the assistant in your personal chat with yourself. Since all responses are sent from your own account (not a separate "butler" contact), this keeps other conversations uncluttered and helps maintain context without confusing others.
 
+WhatsApp Butler can help you:
+
+- 📝 Generate smart summaries of conversations (perfect for catching up on busy group chats)
+- 🔍 Find that elusive message with specific information (addresses, phone numbers, meeting details)
+- 📤 Forward important messages with added context (save time explaining background information)
+- 💬 Answer complex questions about your conversations (who said what and when)
+- 🧠 Maintain context between requests (have natural, flowing interactions)
+
 ### Technical Details
 
 1. **WhatsApp Web Connection**  
@@ -47,13 +55,6 @@ Butler: Mark shared this address on Tuesday:
    All answers from the agent are sent back to your personal chat with yourself, ensuring privacy and keeping your other conversations uncluttered.
 
 
-WhatsApp Butler can help you:
-
-- 📝 Generate smart summaries of conversations (perfect for catching up on busy group chats)
-- 🔍 Find that elusive message with specific information (addresses, phone numbers, meeting details)
-- 📤 Forward important messages with added context (save time explaining background information)
-- 💬 Answer complex questions about your conversations (who said what and when)
-- 🧠 Maintain context between requests (have natural, flowing interactions)
 
 ## Getting Started
 
