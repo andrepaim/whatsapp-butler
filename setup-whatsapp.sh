@@ -49,27 +49,6 @@ update_env_file() {
     fi
 }
 
-# Function to update webhook.json allowedNumbers
-update_webhook_allowed_numbers() {
-    local allowed_numbers=$1
-    local webhook_file="webhook.json"
-
-    # Create webhook.json if it doesn't exist
-    if [ ! -f "$webhook_file" ]; then
-        echo '{"filters": {"allowedNumbers": []}}' > "$webhook_file"
-    fi
-
-    # Update only the allowedNumbers field
-    if command_exists jq; then
-        # Use jq if available
-        jq --arg numbers "$allowed_numbers" '.filters.allowedNumbers = ($numbers | fromjson)' "$webhook_file" > "${webhook_file}.tmp"
-        mv "${webhook_file}.tmp" "$webhook_file"
-    else
-        # Fallback to sed if jq is not available
-        sed -i "s|\"allowedNumbers\":.*|\"allowedNumbers\": $allowed_numbers|" "$webhook_file"
-    fi
-}
-
 # Check if docker and docker-compose are installed
 if ! command_exists docker || ! command_exists docker-compose; then
     print_message "Error: docker and docker-compose must be installed" "$RED"
@@ -116,31 +95,8 @@ print_message ".env file updated successfully" "$GREEN"
 print_message "\nStep 4: Stopping services..." "$YELLOW"
 docker-compose down
 
-# Step 5: Configure allowed numbers
-print_message "\nStep 5: Configuring allowed numbers..." "$YELLOW"
-echo "Do you want to allow all numbers to send messages? (y/n)"
-read -r allow_all
-
-if [ "$allow_all" = "y" ]; then
-    ALLOWED_NUMBERS="[]"
-else
-    echo "Enter the phone number to allow (with country code, e.g., +5511999999999):"
-    read -r phone_number
-    ALLOWED_NUMBERS="[\"$phone_number\"]"
-fi
-
-# Step 6: Update webhook.json allowedNumbers
-print_message "\nStep 6: Updating webhook configuration..." "$YELLOW"
-update_webhook_allowed_numbers "$ALLOWED_NUMBERS"
-print_message "webhook.json updated successfully" "$GREEN"
-
-# Step 7: Copy webhook.json to whatsapp-session-data
-print_message "\nStep 7: Copying webhook.json to whatsapp-session-data..." "$YELLOW"
-sudo cp webhook.json whatsapp-session-data/
-print_message "webhook.json copied successfully" "$GREEN"
-
-# Step 8: Start all services
-print_message "\nStep 8: Starting all services..." "$YELLOW"
+# Step 5: Start all services
+print_message "\nStep 5: Starting all services..." "$YELLOW"
 print_message "🐎 The Watchdog is ready to serve!" "$GREEN"
 docker-compose up -d
 
