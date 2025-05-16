@@ -1,9 +1,6 @@
 {
   "url": "http://webhook/webhook",
   "filters": {
-    "allowedNumbers": [
-      "553197234656"
-    ],
     "allowPrivate": true,
     "allowGroup": true
   }

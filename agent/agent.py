@@ -46,7 +46,7 @@ async def initialize_agent_and_runner():
     agent = Agent(
         model=AGENT_MODEL,
         name=APP_NAME,
-        description="WhatsApp Watchdog, an intelligent assistant specializing in helping users find and understand information from their WhatsApp conversations.",
+        description="WhatsApp Butler, an intelligent assistant specializing in helping users find and understand information from their WhatsApp conversations.",
         instruction=load_agent_prompt(),
         tools=tools,
         output_key="final_response_text",

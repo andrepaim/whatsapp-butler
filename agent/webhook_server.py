@@ -15,6 +15,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Get message prefix from environment variable or use default
+MESSAGE_PREFIX = os.getenv("MESSAGE_PREFIX", "@paimai")
+WHATSAPP_API_URL = os.getenv("WHATSAPP_API_URL")
+WHATSAPP_API_KEY = os.getenv("WHATSAPP_API_KEY")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -27,7 +31,7 @@ async def lifespan(app: FastAPI):
     await exit_stack.aclose()
     logger.info("Agent and runner resources closed.")
 
-app = FastAPI(title="WhatsApp Watchdog Webhook", lifespan=lifespan)
+app = FastAPI(title="WhatsApp Butler Webhook", lifespan=lifespan)
 
 async def send_message_to_whatsapp(response: str, chat_id: str):
     """
@@ -38,8 +42,8 @@ async def send_message_to_whatsapp(response: str, chat_id: str):
     """
     # Send the message to the WHATSAPP_API_URL
     async with httpx.AsyncClient() as client:
-        await client.post(f"{os.getenv('WHATSAPP_API_URL')}/send", 
-                          headers={"Authorization": f"Bearer {os.getenv('WHATSAPP_API_KEY')}"},
+        await client.post(f"{WHATSAPP_API_URL}/send", 
+                          headers={"Authorization": f"Bearer {WHATSAPP_API_KEY}"},
                           json={"message": response, "number": chat_id})
     logger.info(f"Message sent to WhatsApp: {response} to {chat_id}")
 
@@ -58,9 +62,21 @@ async def process_message(message: Dict[str, Any]) -> Dict[str, Any]:
         content = message.get("message", "")
         sender = message.get("name", "")
         chat_id = message.get("from", "")
-        
+
         if not content:
-            raise ValueError("Message content is required")
+            return JSONResponse(
+                status_code=200,
+                content={"status": "success"}
+            )
+
+        # Skip if the message is not from the bot
+        if not content.startswith(MESSAGE_PREFIX):
+            return JSONResponse(
+                status_code=200,
+                content={"status": "success"}
+            )
+        else:
+            content = content.replace(MESSAGE_PREFIX, "").strip()
             
         logger.info(f"Processing message from {sender} in chat {chat_id}")
         
