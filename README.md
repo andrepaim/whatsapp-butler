@@ -144,63 +144,6 @@ make docker-compose-logs
 # Stop services
 make docker-compose-down
 ```
-
-### Example Interactions
-
-1. **Message Summarization**
-```
-You: @paimai Summarize yesterday's messages in the family group
-Assistant: [Provides a summary of yesterday's messages]
-```
-
-2. **Message Search**
-```
-You: @paimai What was the last message from John about the meeting?
-Assistant: [Retrieves and explains the message with context]
-```
-
-3. **Message Forwarding**
-```
-You: @paimai Forward Sarah's party invitation from last week
-Assistant: [Forwards the message with a summary]
-```
-
-4. **Complex Queries**
-```
-You: @paimai Find all messages about the project deadline in the last week
-Assistant: [Searches and summarizes relevant messages]
-
-You: @paimai What was the most discussed topic in the family group this month?
-Assistant: [Analyzes and provides insights about group discussions]
-```
-
-## Development
-
-### Submodule Management
-
-Update the WhatsApp MCP submodule:
-```bash
-cd whatsapp-mcp
-git pull origin main
-cd ..
-git add whatsapp-mcp
-git commit -m "Update wweb-mcp to latest version"
-```
-
-## Deployment
-
-### Docker Deployment
-
-1. Build and start services:
-```bash
-make docker-compose-up
-```
-
-2. Monitor service health:
-```bash
-make docker-compose-logs
-```
-
 ## Troubleshooting
 
 ### Common Issues
