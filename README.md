@@ -230,24 +230,9 @@ make docker-compose-logs
 curl http://localhost:8000/health
 ```
 
-## Maintenance
-
-### Session Management
-
-- Session data is stored in `whatsapp-session-data/`
-- Regular cleanup recommended
-- Backup before updates
-
-### Security Considerations
-
-- Keep API keys secure
-- Regular updates of dependencies
-- Monitor service logs
-- Review allowed numbers in `webhook.json`
-
 ## License and Acknowledgments
 
 - **License**: MIT
-- **WhatsApp Integration**: [wweb-mcp](https://github.com/pnizer/wweb-mcp)
+- **WhatsApp Integration**: [wweb-mcp](https://github.com/pnizer/wweb-mcp) (forked) and [whatsapp-web.js](https://github.com/pedroslopez/whatsapp-web.js)
 - **AI Framework**: Google Gemini AI
 - **Containerization**: Docker and Docker Compose
