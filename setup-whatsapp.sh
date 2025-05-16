@@ -72,7 +72,7 @@ sudo chown -R $(id -u):$(id -g) whatsapp-session-data
 # Step 2: Start whatsapp-api service
 print_message "\nStep 2: Starting WhatsApp API service..." "$YELLOW"
 print_message "Please wait for the QR code to appear..." "$GREEN"
-print_message "🐎 The Watchdog is getting ready to connect..." "$GREEN"
+print_message "🤖 The Butler is getting ready to connect..." "$GREEN"
 docker-compose up whatsapp-api
 
 # Step 3: Extract API key from logs
@@ -97,7 +97,7 @@ docker-compose down
 
 # Step 5: Start all services
 print_message "\nStep 5: Starting all services..." "$YELLOW"
-print_message "🐎 The Watchdog is ready to serve!" "$GREEN"
+print_message "🤖 The Butler is ready to serve!" "$GREEN"
 docker-compose up -d
 
 print_message "\nSetup completed successfully!" "$GREEN"
