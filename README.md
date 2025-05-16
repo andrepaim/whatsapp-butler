@@ -8,7 +8,7 @@ Imagine having a personal WhatsApp assistant that understands your needs, finds 
 
 ## How It Works
 
-WhatsApp Butler seamlessly integrates with your WhatsApp account, bringing the power of AI directly to your conversations. Just like having a personal butler at your service, it's always ready to assist you:
+WhatsApp Butler seamlessly integrates with your WhatsApp account, bringing the power of AI directly to your conversations. Just like having a personal butler at your service, it's always ready to assist you. All responses from the butler will be delivered in your own personal chat with yourself, keeping your interactions private and organized:
 
 ```
 You: @paimai Find John's message about the project deadline
@@ -26,6 +26,9 @@ You: @paimai What was the address of that restaurant Mark recommended?
 Butler: Mark shared this address on Tuesday:
         "Let's try that new Italian place, Bella Cucina at 123 Main Street. They have amazing pasta!"
 ```
+
+💡 **Tip:** For a cleaner experience, use the assistant in your personal chat with yourself. Since all responses are sent from your own account (not a separate "butler" contact), this keeps other conversations uncluttered and helps maintain context without confusing others.
+
 
 The magic happens through a simple prefix command - just start your message with `@paimai` (or customize your own prefix), and your butler instantly knows you need assistance. Behind the scenes, WhatsApp Butler:
 
