@@ -37,11 +37,13 @@ async def initialize_agent_and_runner():
     Initializes the agent (with MCP tools) and the runner.
     Returns: (runner, agent, exit_stack)
     """
-    global send_message_tool
     mcp_url = os.getenv("WHATSAPP_MCP_URL", "http://whatsapp-mcp:3001/mcp")
-    tools, exit_stack = await MCPToolset.from_server(
-        connection_params=SseServerParams(url=mcp_url)
-    )
+
+    tools = [
+        MCPToolset(
+            connection_params=SseServerParams(url=mcp_url)
+        )
+    ]   
 
     agent = Agent(
         model=AGENT_MODEL,
@@ -57,37 +59,23 @@ async def initialize_agent_and_runner():
         session_service=session_service
     )
     print(f"Loaded {len(tools)} tools from WhatsApp MCP server at {mcp_url}.")
-    return runner, agent, exit_stack
+    return runner, agent
 
 
 async def call_agent_async(query: str, runner, user_id, session_id) -> str:
   """Sends a query to the agent and prints the final response."""
   print(f"\n>>> User Query: {query}")
 
-  # Prepare the user's message in ADK format
-  content = types.Content(role='user', parts=[types.Part(text=query)])
-  session = session_service.get_session(app_name=APP_NAME, user_id=user_id, session_id=session_id)
+  session = await session_service.get_session(app_name=APP_NAME, user_id=user_id, session_id=session_id)
   if session is None:
       # Create a new session if it doesn't exist
-      session = session_service.create_session(app_name = APP_NAME, user_id=user_id, session_id=session_id)
+      session = await session_service.create_session(app_name = APP_NAME, user_id=user_id, session_id=session_id)
       logging.info(f"  [Session] Created new session for user {user_id} with session ID {session_id}.")
 
-  # Ensure user_id is in the session state
-  state_changes = {"user_id": user_id}
-  actions_with_update = EventActions(state_delta=state_changes)
-  system_event = Event(
-      invocation_id="set_user_id",
-      author="system",
-      actions=actions_with_update,
-      timestamp=time.time()
-  )
-  session_service.append_event(session, system_event)
 
   final_response_text = ""
-
-  # Key Concept: run_async executes the agent logic and yields Events.
-  # We iterate through events to find the final answer.
   partial_response_text = ""
+  content = types.Content(role='user', parts=[types.Part(text=query)])
   async for event in runner.run_async(user_id=user_id, session_id=session_id, new_message=content):
       # You can uncomment the line below to see *all* events during execution
         print(f"  [Event] Author: {event.author}, Type: {type(event).__name__}, Final: {event.is_final_response()}, Content: {event.content}")
