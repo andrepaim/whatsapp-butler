@@ -16,19 +16,17 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Get message prefix from environment variable or use default
-MESSAGE_PREFIX = os.getenv("MESSAGE_PREFIX", "@paimai")
+QUERY_PREFIX = os.getenv("QUERY_PREFIX", "/query")
 WHATSAPP_API_URL = os.getenv("WHATSAPP_API_URL")
 WHATSAPP_API_KEY = os.getenv("WHATSAPP_API_KEY")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    runner, agent, exit_stack = await initialize_agent_and_runner()
+    runner, agent  = await initialize_agent_and_runner()
     app.state.runner = runner
     app.state.agent = agent
-    app.state.exit_stack = exit_stack
     logger.info("Agent and runner initialized and stored in app.state.")
     yield
-    await exit_stack.aclose()
     logger.info("Agent and runner resources closed.")
 
 app = FastAPI(title="WhatsApp Butler Webhook", lifespan=lifespan)
@@ -62,7 +60,6 @@ async def process_message(message: Dict[str, Any]) -> Dict[str, Any]:
         content = message.get("message", "")
         sender = message.get("name", "")
         chat_id = message.get("from", "")
-
         if not content:
             return JSONResponse(
                 status_code=200,
@@ -70,13 +67,11 @@ async def process_message(message: Dict[str, Any]) -> Dict[str, Any]:
             )
 
         # Skip if the message is not from the bot
-        if not content.startswith(MESSAGE_PREFIX):
+        if not content.startswith(QUERY_PREFIX):
             return JSONResponse(
                 status_code=200,
                 content={"status": "success"}
             )
-        else:
-            content = content.replace(MESSAGE_PREFIX, "").strip()
             
         logger.info(f"Processing message from {sender} in chat {chat_id}")
         
