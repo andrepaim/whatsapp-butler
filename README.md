@@ -4,7 +4,7 @@
 [![Python](https://img.shields.io/badge/python-3.9+-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge)](LICENSE)
 
-Imagine having a personal WhatsApp assistant that understands your needs, finds what you're looking for, and manages your conversations effortlessly. Meet WhatsApp Butler - your elegant AI companion that transforms how you interact with WhatsApp.
+Imagine having a personal WhatsApp assistant that understands your needs, finds what you're looking for, manages your conversations effortlessly, and even helps you schedule messages for the future. Meet WhatsApp Butler - your elegant AI companion that transforms how you interact with WhatsApp.
 
 ## How It Works
 
@@ -15,12 +15,20 @@ You: /query Find John's message about the project deadline
 Butler: I found this message from John (Yesterday, 3:45 PM):
         "Don't forget our project deadline is this Friday at 5pm. Please submit all files to the shared folder."
         
+You: /query Schedule a reminder about the project deadline for Friday at 4pm
+Butler: I've scheduled a reminder for Friday at 4:00 PM:
+        "Reminder: Project deadline is at 5pm today. Please submit all files to the shared folder."
+        
 You: /query Summarize today's messages in the family group
 Butler: Summary of today's messages in "Family Group":
         - Mom announced she's making lasagna for dinner tonight
         - Dad will be home late, around 8pm
         - Your sister shared photos from her trip to the beach
         - Everyone discussed weekend plans (consensus is movie night on Saturday)
+        
+You: /query Set up a daily reminder to check the family group at 8pm
+Butler: I've set up a daily reminder for 8:00 PM:
+        "Time to check the family group for any updates!"
         
 You: /query What was the address of that restaurant Mark recommended?
 Butler: Mark shared this address on Tuesday:
@@ -36,6 +44,7 @@ WhatsApp Butler can help you:
 - 📤 Forward important messages with added context (save time explaining background information)
 - 💬 Answer complex questions about your conversations (who said what and when)
 - 🧠 Maintain context between requests (have natural, flowing interactions)
+- ⏰ Schedule messages and reminders (set up one-time or recurring notifications)
 
 ### Technical Details
 
@@ -49,7 +58,7 @@ WhatsApp Butler can help you:
    Any message you send (in your personal chat with yourself) that starts with the prefix `/query` is automatically detected and forwarded to the AI agent.
 
 4. **Agent Querying and Actions**  
-   The agent uses the WhatsApp MCP Server to search your WhatsApp chat history, answer your queries, and can also send messages on your behalf if you request it.
+   The agent uses the WhatsApp MCP Server to search your WhatsApp chat history, answer your queries, and can also send messages on your behalf if you request it. It can schedule messages for future delivery using the system's cron service.
 
 5. **Private Answer Delivery**  
    All answers from the agent are sent back to your personal chat with yourself, ensuring privacy and keeping your other conversations uncluttered.
@@ -161,6 +170,11 @@ make docker-compose-down
    - Ensure WhatsApp API service is running
    - Check logs for QR code display
    - Verify session data permissions
+
+4. **Scheduled Messages Not Working**
+   - Check cron service status: `docker exec -it <container_name> service cron status`
+   - View cron logs: `docker exec -it <container_name> tail -f /var/log/syslog | grep CRON`
+   - Verify scheduled tasks: `docker exec -it <container_name> crontab -l`
 
 ### Debugging
 
