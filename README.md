@@ -194,3 +194,24 @@ curl http://localhost:8000/health
 - **WhatsApp Integration**: [wweb-mcp](https://github.com/pnizer/wweb-mcp) (forked) and [whatsapp-web.js](https://github.com/pedroslopez/whatsapp-web.js)
 - **AI Framework**: Google Gemini AI
 - **Containerization**: Docker and Docker Compose
+
+## Running Tests
+
+To run the unit tests, you first need to install the development dependencies.
+
+1.  **Install development dependencies:**
+    ```bash
+    pip install -r requirements-dev.txt
+    ```
+
+2.  **Run tests:**
+    Execute pytest from the root directory of the project:
+    ```bash
+    python -m pytest
+    ```
+    Or, simply:
+    ```bash
+    pytest
+    ```
+
+    The tests are located in the `tests/` directory.
