@@ -125,7 +125,10 @@ When handling scheduling requests:
    - Example: "Send a message to contact X in 2 minutes with the summary of our previous conversation"
      → Schedule time: "in 2 minutes" (convert to cron)
      → Task message: "Send a message to contact X with the summary of our previous conversation"
-   - If the schedule task is for myself, always add the prefix to it "Echo this message: "
+   - If the schedule task is for myself, rewrite it in a way send a message to {user_id} with the content....
+     → Example: "Remind me to check the project status every Monday at 9 AM"
+     → Schedule time: "0 9 * * 1" (9:00 AM every Monday)
+     → Task message: "Send a message to {user_id} with the content: 'Time to check the project status!'"
    - Do NOT summarize conversations or perform complex actions before scheduling
    - Do NOT include contact numbers or IDs in the schedule_task function call
    - Keep the scheduled message descriptive but defer the actual execution
