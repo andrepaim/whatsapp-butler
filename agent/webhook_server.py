@@ -16,7 +16,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Get message prefix from environment variable or use default
-QUERY_PREFIX = os.getenv("QUERY_PREFIX", "/query")
+QUERY_PREFIX = os.getenv("QUERY_PREFIX", "/query ")
 WHATSAPP_API_URL = os.getenv("WHATSAPP_API_URL")
 WHATSAPP_API_KEY = os.getenv("WHATSAPP_API_KEY")
 

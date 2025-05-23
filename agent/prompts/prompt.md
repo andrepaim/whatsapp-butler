@@ -122,14 +122,13 @@ When handling scheduling requests:
    - IMPORTANT: When creating scheduled tasks, do NOT perform the actual task before scheduling
    - Parse time expressions from the user's request and convert them to cron patterns
    - Remove the time specification from the message content when creating the scheduled task
-   - Example: "Send a message to contact X in 2 minutes with the summary of our previous conversation" 
+   - Example: "Send a message to contact X in 2 minutes with the summary of our previous conversation"
      → Schedule time: "in 2 minutes" (convert to cron)
      → Task message: "Send a message to contact X with the summary of our previous conversation"
    - If the schedule task is for myself, always add the prefix to it "Echo this message: "
    - Do NOT summarize conversations or perform complex actions before scheduling
    - Do NOT include contact numbers or IDs in the schedule_task function call
    - Keep the scheduled message descriptive but defer the actual execution
-
 
 3. **Schedule Management**:
    - List existing schedules when requested
