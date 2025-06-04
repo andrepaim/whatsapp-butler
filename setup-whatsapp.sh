@@ -77,7 +77,7 @@ docker-compose up whatsapp-api
 
 # Step 3: Extract API key from logs
 print_message "\nStep 3: Extracting API key..." "$YELLOW"
-API_KEY=$(docker-compose logs whatsapp-api | grep "WhatsApp API key:" | tail -n 1 | awk '{print $NF}')
+API_KEY=$(docker-compose logs whatsapp-api 2>/dev/null | grep "WhatsApp API key:" | tail -n1 | sed -E 's/\x1B\[[0-9;]*[mK]//g' | awk '{print $NF}')
 
 if [ -z "$API_KEY" ]; then
     print_message "Error: Could not find API key in logs" "$RED"
