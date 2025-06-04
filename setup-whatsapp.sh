@@ -68,6 +68,7 @@ fi
 # Create directory with correct permissions
 mkdir -p whatsapp-session-data
 sudo chown -R $(id -u):$(id -g) whatsapp-session-data
+cp webhook.json ./whatsapp-session-data
 
 # Step 2: Start whatsapp-api service
 print_message "\nStep 2: Starting WhatsApp API service..." "$YELLOW"
