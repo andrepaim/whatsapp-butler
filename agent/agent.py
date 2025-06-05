@@ -15,7 +15,7 @@ from tools.time_tool import get_current_time
 
 session_service = InMemorySessionService()
 
-APP_NAME = "WhatsAppWatchdog"
+APP_NAME = "WhatsAppButler"
 
 load_dotenv()
 
