@@ -79,8 +79,8 @@ WhatsApp Butler can help you:
 
 1. Clone the repository with submodules:
 ```bash
-git clone --recursive https://github.com/andrepaim/whatsapp-watchdog.git
-cd whatsapp-watchdog
+git clone --recursive https://github.com/andrepaim/whatsapp-butler.git
+cd whatsapp-butler
 ```
 
 2. Create a `.env` file with required variables:
